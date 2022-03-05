@@ -13,3 +13,5 @@ new_depdelay <- data.frame(
   DepDelayMinutes = c(12, 19, 24))
 pred <- predict(linear_model, newdata = new_depdelay, interval = "confidence")
 pred
+
+## checking
