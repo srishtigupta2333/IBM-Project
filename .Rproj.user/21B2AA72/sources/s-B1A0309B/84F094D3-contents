@@ -79,5 +79,49 @@ summary_airline_delays <- airline_data %>%
 summary_airline_delays
 airline_data %>%
   count(Reporting_Airline)
+#uploaded via GitHub
+#changed in Rstudio
+#group_by function
+avg_delays <- airline_data %>% 
+  group_by(Reporting_Airline, DayOfWeek) %>% 
+  summarise(mean_delays = mean(ArrDelayMinutes))
+avg_delays
+avg_delays %>% arrange(desc(mean_delays))
+install.packages("ggplot2")
+library(ggplot2)
+plot_heatmap <- ggplot(data = "airline_data", 
+                aes(x = Reporting_Airline,
+               y = DayOfWeek,
+             fill = mean_delays)) + 
+  geom_tile(color = "white", size = 0.2) + 
+  scale_fill_gradient(low = "yellow", high = "red")
+aa_as_subset <- airline_data %>% 
+  select.list(ArrDelay, Reporting_Airline) %>% 
+  filter(Reporting_Airline == "AA", Reporting_Airline == "AS")
+ad_aov <- aov(ArrDelay ~ Reporting_Airline, data = aa_as_subset)
+summary(ad_aov)
 
-#New commit
+ggplot(airline_data,
+       aes(DepDelayMinutes,
+           ArrDelayMinutes)) +
+  geom_point() +
+  geom_smooth(method = "lm")
+
+ggplot(airline_data,
+       aes(WeatherDelay,
+           ArrDelayMinutes)) +
+  geom_point(na.rm = TRUE) +
+  geom_smooth(method = "lm",
+              na.rm = TRUE)
+airline_data %>%
+  select(DepDelay, ArrDelay) %>%
+  cor(method = "pearson")
+airline_data %>%
+  cor.test(~DepDelay + ArrDelay, data = .)
+install.packages("Hmisc")
+library(Hmisc)
+numerics_airline <- airline_data %>%
+  select(ArrDelayMinutes, DepDelayMinutes, CarrierDelay, WeatherDelay,
+         NASDelay, SecurityDelay, LateAircraftDelay)
+airlines_cor <- rcorr(as.matrix(numerics_airline),
+                      type = "pearson")
