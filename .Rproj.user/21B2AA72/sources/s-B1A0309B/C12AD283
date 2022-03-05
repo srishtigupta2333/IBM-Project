@@ -1,7 +1,7 @@
 {
     "id": "C12AD283",
-    "path": null,
-    "project_path": null,
+    "path": "~/Extra Courses/R Language/IBM Project/Model Development in R.R",
+    "project_path": "Model Development in R.R",
     "type": "r_source",
     "hash": "0",
     "contents": "",
@@ -15,11 +15,11 @@
         "Source": "Source"
     },
     "folds": "",
-    "lastKnownWriteTime": 1646485398,
-    "encoding": "",
+    "lastKnownWriteTime": 1646485731,
+    "encoding": "UTF-8",
     "collab_server": "",
     "source_window": "",
-    "last_content_update": 1646485404444,
+    "last_content_update": 1646485731966,
     "read_only": false,
     "read_only_alternatives": []
 }
