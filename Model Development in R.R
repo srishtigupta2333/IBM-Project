@@ -29,3 +29,4 @@ linear_model <- lm(ArrDelayMinutes ~ DepDelayMinutes,
                    data = aa_delays)
 plot(linear_model)
 ##checking 6/3/22##
+## checking for connection##
