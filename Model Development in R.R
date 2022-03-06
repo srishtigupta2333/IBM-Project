@@ -28,5 +28,17 @@ ggplot(aa_delays, aes(x= DepDelayMinutes, y = ArrDelayMinutes)) + geom_point() +
 linear_model <- lm(ArrDelayMinutes ~ DepDelayMinutes,
                    data = aa_delays)
 plot(linear_model)
-##checking 6/3/22##
-## checking for connection##
+install.packages("tidymodels")
+library(tidymodels)
+set.seed(1234)
+fight_split <- initial_split(aa_delays, prop = 0.8)
+train_data <- training(fight_split)
+test_data <- testing(fight_split)
+lm_spec <- linear_reg() %>%
+  set_engine(engine = "lm") 
+train_fit <- lm_spec %>%
+  fit(ArrDelayMinutes ~ DepDelayMinutes, data = train_data)
+test_results <- train_fit %>%
+  predict(new_data = test_data) %>% 
+  mutate(truth = test_data$ArrDelayMinutes)
+test_results
