@@ -15,7 +15,6 @@ qplot(mtcars$cyl,
       fill = I("blue"),
       color = I("red"))
 
-
 ## adding x and y axis info and title to plot
 qplot(mtcars$cyl,
       geom = "bar", 
@@ -24,7 +23,6 @@ qplot(mtcars$cyl,
       xlab = "Cylinders",
       ylab = "No. of Vehicles",
       main = "Cylinder in mtcars")
-
 
 ## making histogram to display horsepower in our dataset
 qplot(mtcars$hp,
@@ -51,6 +49,7 @@ qplot(mtcars$hp,
 ## using alpha to completely remove the color ##    
 
 ## creating Pie Charts ##
+
 ##transforming bar charts into pie charts ##
 ##changing cyl values in data to factor of 2, 4 or 6 ##
 mtcars <- mtcars %>% 
