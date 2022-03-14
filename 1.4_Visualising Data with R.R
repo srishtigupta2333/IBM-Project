@@ -1,0 +1,86 @@
+install.packages("ggplot2")
+install.packages("leaflet")
+library(ggplot2)
+library(leaflet)
+library(readxl)
+library(tidyverse)
+library(readr)
+library(dplyr)
+## using in built dataset mtcars ##
+mtcars
+## making simple bar charts using qplot() function ##
+## adding color and border using fill and color option ##
+qplot(mtcars$cyl,
+      geom = "bar", 
+      fill = I("blue"),
+      color = I("red"))
+
+## adding x and y axis info and title to plot
+qplot(mtcars$cyl,
+      geom = "bar", 
+      fill = I("red"),
+      color = I("black"),
+      xlab = "Cylinders",
+      ylab = "No. of Vehicles",
+      main = "Cylinder in mtcars")
+
+## making histogram to display horsepower in our dataset
+qplot(mtcars$hp,
+      geom = "histogram",
+      binwidth = 25,
+      color = I("black"),
+      fill = I("blue"),
+      xlim = c(50, 350),
+      xlab = "Horsepower",
+      ylab = "NO. of cars",
+      main = "Histogram")
+## using xlim function to define the limit of value on x axis ##
+## using binwidth to define the length of bins on x-axis ##
+
+qplot(mtcars$hp,
+      geom = "histogram",
+      binwidth = 25,
+      color = I("black"),
+      xlim = c(50, 350),
+      xlab = "Horsepower",
+      ylab = "NO. of cars",
+      main = "Histogram",
+      alpha = I(0))
+## using alpha to completely remove the color ##    
+
+## creating Pie Charts ##
+
+##transforming bar charts into pie charts ##
+##changing cyl values in data to factor of 2, 4 or 6 ##
+mtcars <- mtcars %>% 
+  mutate(cyl_factor = as.factor(cyl))
+## plotting this chart using ggplot function ##
+ggplot(data = mtcars,
+       aes(x = cyl_factor,
+           fill = cyl_factor)) +
+  geom_bar(position = "dodge")
+
+## alternately stacked bar charts ##
+ggplot(data = mtcars,
+       aes(x = " ",
+           fill = cyl_factor)) +
+  geom_bar(position = "stack")
+
+## converting stacked bar charts into pie charts using coord_polar function ##
+
+ggplot(data = mtcars,
+       aes(x = " ",
+           fill = cyl_factor)) +
+  geom_bar(position = "stack") +
+coord_polar(theta = "y") +
+theme_minimal()
+
+## changing color palette of the chart ##
+ggplot(data = mtcars,
+       aes(x = " ",
+           fill = cyl_factor)) +
+  geom_bar(position = "stack") +
+  coord_polar(theta = "y") +
+  scale_fill_brewer(palette = "Dark2")
+
+## check ##
