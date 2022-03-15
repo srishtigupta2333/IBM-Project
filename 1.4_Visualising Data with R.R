@@ -128,3 +128,6 @@ ggplot(mtcars,
            color = cyl_factor)) +
   geom_point(shape = 19) + labs(color = "Cylinders") + xlab("Miles Per Gallon") +
   ylab("Weight") + ggtitle("Scatterplot")
+
+
+## check 15 ##
