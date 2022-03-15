@@ -148,7 +148,70 @@ tidy_stocks <- tidy(EuStockMarkets) %>%
          Price = value)
 head(tidy_stocks)
 ## here first four entries in tidy_stock is the first row in EuStockMarkets Data set ##
+
 ## creating multiple  line plots ##
+
 ggplot(tidy_stocks, aes(x = Date, y = Price)) + 
   geom_line(aes(color = Stock_index)) + 
   ggtitle("EuStockMarkets 1980-1999")
+
+## creating box plots ##
+qplot(factor(cyl), mpg,
+      data = mtcars,
+      geom = "boxplot")
+## creating box plots using ggplot ##
+cars <- ggplot(mtcars,
+               aes(factor(cyl),
+                   mpg)) 
+cars + geom_boxplot()
+
+## customizing plots ##
+## making more pleasing and informative charts ##
+ggplot(mtcars, 
+       aes(x = wt, 
+           y = mpg)) + 
+  geom_point(aes(color = factor(cyl))) +
+  labs(
+    x = "Weight (1000 lbs)",
+    y = "Miles/(US) gallon",
+    color = "Cylinders",
+    title = "Mileage by Weight and Cylinders",
+    subtitle = "Source: 1974 Motor Trend US Magazine")
+
+## adding text to data points in plot ##
+ggplot(mtcars, 
+       aes(x = wt, 
+           y = mpg)) + 
+  geom_point(aes(color = factor(cyl))) +
+  geom_text(aes(label = rownames(mtcars)))
+
+## adjusting text in plot ##
+ggplot(mtcars, 
+       aes(x = wt, 
+           y = mpg)) + 
+  geom_point(aes(color = factor(cyl))) +
+  geom_text(aes(label = rownames(mtcars)), 
+            check_overlap = TRUE, hjust = "inward")
+
+## Custom Annotations ##
+ggplot(mtcars, 
+       aes(x = mpg,)) +
+  geom_histogram(bins = 10) +
+  labs(x = "Miles/US gallon",
+       y = "Count",
+       title = "Distribution of Miles/gallon") +
+  geom_vline(aes(xintercept = 19.2), color = "Red") +
+  annotate(geom = "text",
+           label = "Median = 19.2",
+           x = 20,
+           y = 6.8,
+           hjust = 0,
+           color = "red") +
+  geom_hline(aes(yintercept = 7), color = "Blue") +
+  annotate(geom = "text",
+           label = "Maximum Count",
+           x = 11.5,
+           y = 6.8,
+           hjudt = 0,
+           color = "Blue")
+
