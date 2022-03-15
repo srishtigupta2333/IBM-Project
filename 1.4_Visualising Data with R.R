@@ -84,3 +84,47 @@ ggplot(data = mtcars,
   scale_fill_brewer(palette = "Dark2")
 
 ## check ##
+## creating scatter plots ##
+qplot(mpg, wt, data = mtcars)
+ggplot(mtcars,
+       aes(x = mpg,
+           y = wt)) + geom_point(shape = 1)
+
+## filled circles ##
+qplot(mpg, wt, data = mtcars)
+ggplot(mtcars,
+       aes(x = mpg,
+           y = wt)) + geom_point(shape = 19)
+## three variable ##
+mtcars$cyl_factor <- factor(mtcars$cyl)
+ggplot(mtcars,
+       aes(x = mpg,
+           y = wt,
+           shape = cyl_factor)) +
+  geom_point()
+
+## changing color of the points ##
+ggplot(mtcars,
+       aes(x = mpg,
+           y = wt)) + geom_point(shape = 19, color = "blue")
+## changing color in 3 variables ##
+ggplot(mtcars,
+       aes(x = mpg,
+           y = wt,
+           color = cyl)) +
+  geom_point(shape = 19)
+
+## different colors as factor variables ##
+ggplot(mtcars,
+       aes(x = mpg,
+           y = wt,
+           color = cyl_factor)) +
+  geom_point(shape = 19) 
+
+## changing legend ##
+ggplot(mtcars,
+       aes(x = mpg,
+           y = wt,
+           color = cyl_factor)) +
+  geom_point(shape = 19) + labs(color = "Cylinders") + xlab("Miles Per Gallon") +
+  ylab("Weight") + ggtitle("Scatterplot")
