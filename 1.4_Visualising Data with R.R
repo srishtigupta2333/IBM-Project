@@ -129,5 +129,26 @@ ggplot(mtcars,
   geom_point(shape = 19) + labs(color = "Cylinders") + xlab("Miles Per Gallon") +
   ylab("Weight") + ggtitle("Scatterplot")
 
-
-## check 15 ##
+## Line Charts using EUStockMarkets Data Set ##
+View(EuStockMarkets)
+## Converting into a data frame ##
+EuStockDF <- as.data.frame(EuStockMarkets)
+EuStockDF$Date <- as.numeric(time(EuStockMarkets))
+head(EuStockDF)
+## creating Line Plots usine geom_line function ##
+ggplot(EuStockDF, aes(x = Date, y = SMI)) + 
+  geom_line() + 
+  labs(y = "Closing Price of Switzerland (SMI) stock index") +
+  ggtitle("Line Chart of SMI from 1980")
+## Making Stacked Line Charts for various Index ##
+library(broom)
+tidy_stocks <- tidy(EuStockMarkets) %>%
+  rename(Date = index,
+         Stock_index = series,
+         Price = value)
+head(tidy_stocks)
+## here first four entries in tidy_stock is the first row in EuStockMarkets Data set ##
+## creating multiple  line plots ##
+ggplot(tidy_stocks, aes(x = Date, y = Price)) + 
+  geom_line(aes(color = Stock_index)) + 
+  ggtitle("EuStockMarkets 1980-1999")
