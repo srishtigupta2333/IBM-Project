@@ -1,7 +1,5 @@
 install.packages("ggplot2")
-install.packages("leaflet")
 library(ggplot2)
-library(leaflet)
 library(readxl)
 library(tidyverse)
 library(readr)
@@ -195,7 +193,9 @@ ggplot(mtcars,
 
 ## Custom Annotations ##
 ggplot(mtcars, 
-       aes(x = mpg,)) +
+       aes(x = mpg,
+           color = I("Black"),
+           fill = I("Blue"))) +
   geom_histogram(bins = 10) +
   labs(x = "Miles/US gallon",
        y = "Count",
@@ -207,11 +207,57 @@ ggplot(mtcars,
            y = 6.8,
            hjust = 0,
            color = "red") +
-  geom_hline(aes(yintercept = 7), color = "Blue") +
+  geom_hline(aes(yintercept = 7), color = "Black") +
   annotate(geom = "text",
            label = "Maximum Count",
            x = 11.5,
            y = 6.8,
            hjudt = 0,
-           color = "Blue")
+           color = "Black")
+
+## Faceting ##
+ggplot(mtcars, 
+       aes(x = mpg)) +
+  geom_histogram() +
+  facet_wrap(~cyl) +
+  theme_bw()
+
+## ggthemes package ##
+install.packages("ggthemes")
+library(ggthemes)
+
+p <- ggplot(mtcars,
+            aes(x = wt, y = mpg)) +
+  geom_point(aes(color = factor(cyl))) +
+  labs(
+    x = "Weight (1000lbs)",
+    y = "Miles per gallon",
+    color = "Cylinders")
+p
+
+## adding economist theme and color scale ##
+p + theme_economist() + scale_color_economist()
+
+## Maps with leaflet ##
+install.packages("leaflet")
+library(leaflet)
+
+map <- leaflet() %>% addTiles() %>%
+  addMarkers(lng = 77.20368491443381 , lat = 28.681812293748607,
+             popup = "Current Location")
+map
+
+## using built-in quakes data set ##
+head(quakes)
+leaflet(quakes) %>%
+  addTiles() %>%
+  addCircleMarkers(lng = quakes$long, lat = quakes$lat)
+
+leaflet(quakes) %>% addTiles() %>%
+  addCircleMarkers(clusterOptions = markerClusterOptions())
+
+leaflet(quakes) %>% addTiles() %>%
+  addCircles(lng = quakes$long, lat = quakes$lat)
+
+
 
